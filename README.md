@@ -1,5 +1,7 @@
 # PO Importer
 
+https://po-blond-rho.vercel.app
+
 Paste messy purchase-order text (and optional plain-English instructions), let an LLM structure it, and download a ready-to-upload `.xlsm` spreadsheet. Bring-your-own API key (OpenAI or Claude), or use the built-in **Demo** parser with no key.
 
 ## Stack
