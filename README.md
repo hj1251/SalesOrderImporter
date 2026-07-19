@@ -130,5 +130,5 @@ This repo is already configured for Vercel (`vercel.json` + `api/index.ts`).
 
 ## Notes
 
-- Export filename: `po_export.xlsm`.
+- Export filename: `po_export.xlsm`, sheet name "Purchase Order" (both set in `server/xlsm.ts`).
 - Nothing is persisted server-side and no API key of any kind is needed — the whole tool works offline from the browser's point of view, aside from the final export round-trip.

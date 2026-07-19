@@ -131,6 +131,9 @@ export default function Home() {
   }
 
   function addTemplateRow(blockId: string) {
+    // Pre-fill one empty value per CSV column (rather than an empty object) so
+    // the template-row form always has an input for every column up front,
+    // even ones the user never ends up typing into.
     const values = Object.fromEntries(csvColumns.map((col) => [col, ""]));
     setSearchBlocks((b) =>
       b.map((x) =>
@@ -240,6 +243,9 @@ export default function Home() {
 
   const handleDownload = () => {
     if (!result) return;
+    // A data-URI anchor rather than an object URL / blob: no server-side file
+    // to clean up afterward, and it works the same way in every environment
+    // this gets embedded in, not just a plain browser tab.
     const a = document.createElement("a");
     a.href = `data:${result.mimeType};base64,${result.fileBase64}`;
     a.download = result.fileName;
