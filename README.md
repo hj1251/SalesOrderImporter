@@ -15,7 +15,7 @@ Customers send in their orders as messy `.xlsx`/CSV files, one per customer. Tod
 
 The previous solution to this was a separate Excel file *per customer*, each with its own VBA macro: paste the customer's data in, click a button, and the macro would spit out an importable file. That worked, but every customer's file was its own one-off — low efficiency to run, hard to maintain, and completely inflexible if a customer's format or rules changed even slightly.
 
-**PO Importer replaces those per-customer VBA files with one tool.** It's deliberately *not* AI-based: the rules for "which stock code needs which extra row" are well-defined and don't need an LLM to guess at — a hard-coded lookup was already fully correct for this problem, so the tool models it directly (search term → template row) instead of using AI as an unnecessary indirection. See [`SalesOrderImporterAI`](https://github.com/hj1251/SalesOrderImporterAI) for the sibling project that *does* use an LLM, for the harder problem of parsing genuinely unstructured free-text orders.
+**Sales Order Importer replaces those per-customer VBA files with one tool.** It's deliberately *not* AI-based: the rules for "which stock code needs which extra row" are well-defined and don't need an LLM to guess at — a hard-coded lookup was already fully correct for this problem, so the tool models it directly (search term → template row) instead of using AI as an unnecessary indirection. See [`SalesOrderImporterAI`](https://github.com/hj1251/SalesOrderImporterAI) for the sibling project that *does* use an LLM, for the harder problem of parsing genuinely unstructured free-text orders.
 
 ---
 
@@ -42,7 +42,7 @@ This is entirely client-side logic (matching, template merging) — the backend'
 ## Project Structure
 
 ```text
-PO-importer/
+SalesOrderImporter/
 ├── api/
 │   └── index.ts              # Vercel serverless entrypoint — exports the Express app directly
 │

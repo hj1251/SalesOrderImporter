@@ -254,7 +254,7 @@ export default function Home() {
         <div className="flex items-center gap-2.5">
           <Logo className="h-7 w-7 text-foreground" />
           <div className="leading-tight">
-            <div className="font-semibold text-sm">PO Importer</div>
+            <div className="font-semibold text-sm">Sales Order Importer</div>
           </div>
         </div>
         <div className="flex items-center gap-1">

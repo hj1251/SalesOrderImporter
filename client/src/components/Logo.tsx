@@ -7,7 +7,7 @@ export function Logo({ className = "" }: { className?: string }) {
       viewBox="0 0 32 32"
       fill="none"
       role="img"
-      aria-label="PO Importer logo"
+      aria-label="Sales Order Importer logo"
       width="32"
       height="32"
     >
