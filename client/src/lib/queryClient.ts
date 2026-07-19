@@ -1,5 +1,9 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
+// Placeholder left over from the original sandboxed preview environment: if a
+// build step ever replaces "__PORT_5000__" with a real base URL this picks it
+// up automatically, but otherwise it resolves to "" (relative), which is
+// exactly what's needed on Vercel where the frontend and /api are same-origin.
 const API_BASE = "__PORT_5000__".startsWith("__") ? "" : "__PORT_5000__";
 
 async function throwIfResNotOk(res: Response) {

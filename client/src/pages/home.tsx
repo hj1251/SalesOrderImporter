@@ -45,6 +45,9 @@ type ParsedTable = {
   rows: Record<string, string | number>[];
 };
 
+// Hand-rolled CSV split instead of a library: quoted fields (which may contain
+// commas or escaped double-quotes) are the only edge case that actually shows
+// up in these exports, so a small parser covers it without adding a dependency.
 function splitCsvLine(line: string): string[] {
   const result: string[] = [];
   let current = "";
@@ -74,6 +77,8 @@ function parseCSV(text: string): ParsedTable {
     const row: Record<string, string | number> = {};
     columns.forEach((col, i) => {
       const v = vals[i] ?? "";
+      // Coerce numeric-looking cells (QTY, prices) to actual numbers so the
+      // exported spreadsheet doesn't show them as text; anything else stays a string.
       const n = Number(v);
       row[col] = v !== "" && !isNaN(n) ? n : v;
     });
@@ -101,6 +106,10 @@ export default function Home() {
   const csvParsed = csvText.trim() ? parseCSV(csvText) : { columns: [], rows: [] };
   const csvColumns = csvParsed.columns;
 
+  // A block's search term is matched against every column, not a specific one
+  // (e.g. "SKU") — the term is usually a stock code, but it could just as
+  // easily be a product name or customer reference, and this keeps the tool
+  // working regardless of how a given customer's CSV happens to be laid out.
   function getMatches(search: string) {
     const s = search.toLowerCase().trim();
     if (!s) return [];
@@ -172,6 +181,10 @@ export default function Home() {
     setSearchBlocks([]);
   }
 
+  // This is the core "linked item / delivery fee" logic: walk the pasted CSV
+  // row by row, keep it, then check it against every search block. On a match,
+  // insert that block's template row(s) directly after it — this is what
+  // replaces the manual "add a row for the charger / delivery fee" step.
   function buildTable(): ParsedTable | null {
     if (csvColumns.length === 0) return null;
 
@@ -191,6 +204,10 @@ export default function Home() {
           for (const tpl of block.templateRows) {
             const row: Record<string, string | number> = {};
             for (const col of columns) {
+              // A blank template field inherits the triggering row's value
+              // (e.g. PO number, delivery address) instead of being left
+              // empty, so only the fields that actually differ — like the
+              // linked item's SKU — need to be typed in.
               const tplVal = tpl.values[col] ?? "";
               row[col] = tplVal !== "" ? tplVal : (csvParsed.rows[i][col] ?? "");
             }
