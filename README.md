@@ -123,6 +123,11 @@ This repo is already configured for Vercel (`vercel.json` + `api/index.ts`).
 
 ---
 
+## Next Steps
+
+- **Flexible output columns.** Right now the exported spreadsheet always uses exactly the columns that came in on the pasted/attached CSV — there's no way to add, remove, reorder, or rename columns for the export independently of the input. Letting the user define the output column set directly would make the tool usable even when a customer's file format and the ERP's expected import format don't line up 1:1.
+- **Remember past configurations.** Every search block (search term + template rows) has to be typed in from scratch every time, even for a rule that never changes — e.g. "when the order contains SKU ***, add a row and set Unit Cost to 1.99." Saving these configurations (per customer, or as reusable named presets) so they can be picked from a list instead of re-entered would remove almost all of the remaining manual setup on repeat use.
+
 ## Notes
 
 - Export filename: `po_export.xlsm`.
